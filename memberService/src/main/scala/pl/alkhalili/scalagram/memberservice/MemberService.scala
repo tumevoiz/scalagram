@@ -2,7 +2,6 @@ package pl.alkhalili.scalagram.memberservice
 
 import cats.effect.Effect
 import org.http4s.HttpRoutes
-
 import pl.alkhalili.scalagram.common.Service
 
 class MemberService[F[_]: Effect] extends Service[F] {

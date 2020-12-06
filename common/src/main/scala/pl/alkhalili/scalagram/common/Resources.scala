@@ -1,5 +1,6 @@
 package pl.alkhalili.scalagram.common
 
-import pl.alkhalili.scalagram.common.config.{DatabaseConfig, MicroserviceConfig}
+import pl.alkhalili.scalagram.common.config.{ApplicationConfig, DatabaseConfig, ServiceConfig}
 
-case class Resources(serviceConfig: MicroserviceConfig, databaseConfig: DatabaseConfig)
+case class Resources[F[_]](applicationConfig: ApplicationConfig,
+                           repository: Repository[F, _ <: Entity])

@@ -46,6 +46,10 @@ object Dependencies {
     "org.typelevel" %% "cats-effect" % CatsEffectVersion
   )
 
+  lazy val Circe = Seq(
+    "io.circe" %% "circe-generic" % CirceVersion
+  )
+
   lazy val Database = Seq(
     "org.tpolecat"   %% "doobie-core"   % DoobieVersion,
     "org.tpolecat"   %% "doobie-h2"     % DoobieVersion,
@@ -66,7 +70,7 @@ object Dependencies {
   /**
     * Returns all dependencies
     */
-  val all = Http4s ++ Cats ++ CatsEffect ++ Database ++ Logback ++ Pureconfig
+  val all = Http4s ++ Cats ++ CatsEffect ++ Circe ++ Database ++ Logback ++ Pureconfig
 
   object Versions {
     lazy val CatsVersion       = "2.1.1"

@@ -27,20 +27,22 @@ case class DatabaseConfig(driver: String,
                           user: String,
                           password: String,
                           port: Int,
-                          databaseName: String) { self =>
-  def transactor[F[_]](xc: ExecutionContext, blocker: Blocker)(
+                          databaseName: String) {
+  def default = DatabaseConfig(Driver.H2.driverClass, "", "", "", 0, "default")
+}
+
+object DatabaseProvider {
+  def mkTransactor[F[_]](databaseConfig: DatabaseConfig, xc: ExecutionContext, blocker: Blocker)(
       implicit csf: ContextShift[F],
       ce: ConcurrentEffect[F]): Resource[F, HikariTransactor[F]] = {
-    val driverObject = Driver(driver)
+    val driverObject = Driver(databaseConfig.driver)
     HikariTransactor.newHikariTransactor[F](
       driverObject.driverClass,
-      driverObject.connectionString(self),
-      user,
-      password,
+      driverObject.connectionString(databaseConfig),
+      databaseConfig.user,
+      databaseConfig.password,
       xc,
       blocker
     )
   }
-
-  def default = DatabaseConfig(Driver.H2.driverClass, "", "", "", 0, "default")
 }

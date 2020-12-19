@@ -1,16 +1,18 @@
+import com.typesafe.sbt.SbtNativePackager
+import com.typesafe.sbt.packager.docker.DockerPlugin
 import org.scalafmt.sbt.ScalafmtPlugin.autoImport.scalafmtOnCompile
 import sbt.Keys._
 import sbt._
 
 object Build {
   lazy val allSettings = metadata ++ compilerOptions ++ Seq(
-    libraryDependencies ++= Dependencies.all)
+    libraryDependencies ++= Dependencies.core
+  )
 
   lazy val metadata = Seq(
     organization := "pl.alkhalili",
     version := "0.1",
-    scalaVersion := "2.13.4",
-    name := "scalagram"
+    scalaVersion := "2.13.4"
   )
 
   lazy val compilerOptions = Seq(
@@ -36,6 +38,10 @@ object Dependencies {
     "org.http4s" %% "http4s-blaze-client" % Http4sVersion,
     "org.http4s" %% "http4s-circe"        % Http4sVersion,
     "org.http4s" %% "http4s-dsl"          % Http4sVersion
+  )
+
+  lazy val BCrypt = Seq(
+    "com.github.t3hnar" %% "scala-bcrypt" % BCryptVersion
   )
 
   lazy val Cats = Seq(
@@ -68,11 +74,12 @@ object Dependencies {
   )
 
   /**
-    * Returns all dependencies
+    * Returns core dependencies
     */
-  val all = Http4s ++ Cats ++ CatsEffect ++ Circe ++ Database ++ Logback ++ Pureconfig
+  val core = Http4s ++ Cats ++ CatsEffect ++ Circe ++ Database ++ Logback ++ Pureconfig
 
   object Versions {
+    lazy val BCryptVersion     = "4.1"
     lazy val CatsVersion       = "2.1.1"
     lazy val CatsEffectVersion = "2.1.1"
     lazy val CirceVersion      = "0.13.0"
@@ -82,5 +89,6 @@ object Dependencies {
     lazy val Http4sVersion     = "0.21.11"
     lazy val LogbackVersion    = "1.2.3"
     lazy val PureconfigVersion = "0.14.0"
+    lazy val ScalaPBVersion    = "0.10.9"
   }
 }

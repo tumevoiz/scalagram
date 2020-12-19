@@ -22,19 +22,22 @@ object Driver {
   val H2: Driver = Driver("org.h2.Driver")
 }
 
-case class DatabaseConfig(driver: String,
-                          host: String,
-                          user: String,
-                          password: String,
-                          port: Int,
-                          databaseName: String) {
+case class DatabaseConfig(
+    driver: String,
+    host: String,
+    user: String,
+    password: String,
+    port: Int,
+    databaseName: String
+) {
   def default = DatabaseConfig(Driver.H2.driverClass, "", "", "", 0, "default")
 }
 
 object DatabaseProvider {
   def mkTransactor[F[_]](databaseConfig: DatabaseConfig, xc: ExecutionContext, blocker: Blocker)(
       implicit csf: ContextShift[F],
-      ce: ConcurrentEffect[F]): Resource[F, HikariTransactor[F]] = {
+      ce: ConcurrentEffect[F]
+  ): Resource[F, HikariTransactor[F]] = {
     val driverObject = Driver(databaseConfig.driver)
     HikariTransactor.newHikariTransactor[F](
       driverObject.driverClass,

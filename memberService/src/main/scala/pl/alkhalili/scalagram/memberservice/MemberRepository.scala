@@ -1,7 +1,7 @@
 package pl.alkhalili.scalagram.memberservice
 
 import cats.effect.Effect
-import pl.alkhalili.scalagram.common.Repository
+import pl.alkhalili.scalagram.common.{Entity, Repository}
 import doobie._
 import doobie.implicits._
 import cats.implicits._

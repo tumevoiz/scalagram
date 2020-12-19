@@ -1,3 +1,3 @@
 package pl.alkhalili.scalagram.common
 
-package object implicits extends EntityJson {}
+package object implicits {}

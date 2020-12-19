@@ -1,0 +1,22 @@
+version: "3.9"
+services:
+  api-gateway:
+    container_name: scalagram-api-gateway
+    image: api-gateway:latest
+    networks:
+      - microservice0
+  envoy-front-proxy:
+
+  authentication-service:
+    container_name: scalagram-authentication-service
+    image: authentication-service:latest
+    networks:
+      - microservice0
+  member-service:
+    container_name: scalagram-member-service
+    image: member-service:latest
+    networks:
+      - microservice0
+
+networks:
+  microservice0 :{}
